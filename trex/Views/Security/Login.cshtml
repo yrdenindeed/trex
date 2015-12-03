@@ -19,9 +19,39 @@
               <label>
                   <input type="checkbox" value="remember-me"> Remember me
               </label>
-          </div>
-          <p>@ViewBag.Message</p>
+          </div>          
         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
       }
 
+    <input type="hidden" id="error" value="@ViewBag.Message" />    
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Login Failed</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Incorrect username or password.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
 </div> 
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script>
+    $().ready(function () {
+        if ($('#error').val() == "Incorrect username or password.") {            
+            $('#myModal').modal('show');
+        }
+    });
+    
+</script>
