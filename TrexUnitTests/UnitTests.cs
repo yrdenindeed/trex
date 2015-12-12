@@ -3,12 +3,34 @@ using System.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using trex.Controllers;
 using trex.Models;
+using System.Linq;
 
 namespace TrexUnitTests
 {
     [TestClass]
     public class UnitTests
     {
+
+        [TestMethod]
+        public void TestLoginSuccess()
+        {
+            var db = new TrexContext();
+
+            var user = new User()
+            {
+                Id = Guid.NewGuid(),
+                Email = "a@a.com",
+                HashedPassword = "1000:lsQrY6Ua0RhOY87r138ykAQnorrHztoP:2zyrQOoEfGxWZJbM/2fhuE9euXPIhG+n"
+            };
+
+            db.Users.Add(user);
+
+            SecurityController c = new SecurityController();
+            c.Login(user.Email, user.HashedPassword);
+            
+            
+        }
+
         [TestMethod]
         public void TestMethodChangePasswordFromEmpty()
         {
@@ -48,5 +70,7 @@ namespace TrexUnitTests
 
             Assert.IsFalse(UserController.CheckChangePassword(user, "wrongpassword", "password2"), "Wrong password should be password1");
         }
+
+        
     }
 }

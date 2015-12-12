@@ -20,4 +20,20 @@ namespace trex.Models
 
 
     }
+
+
+    public interface ISecurable
+    {
+        bool IsSecure { get; set; }
+    }
+
+    public class TrexSecureContext
+    {
+        TrexContext cx = new TrexContext();
+
+        public IQueryable<T> Get<T>() where T : class, ISecurable
+        {
+            return cx.Set<T>().Where(s => s.IsSecure);
+        }
+    }
 }
