@@ -191,6 +191,7 @@
     <Content Include="Views\Ticket\TicketIndicator.cshtml" />
     <Content Include="Views\Security\Login.cshtml" />
     <Content Include="Scripts\underscore.min.map" />
+    <Content Include="Views\Security\SignUp.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
