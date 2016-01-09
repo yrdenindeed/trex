@@ -1,13 +1,13 @@
-﻿@model trex.Models.User
+﻿@model trex.ViewModels.SignUpViewModel
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Create New Trex User";
 }
 
-<h2>Create</h2>
+<h2>Create New User</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm("Create", "User", @Model, FormMethod.Post, new { @onsubmit = "return validateSamePasswords()" }))
 {
     @Html.AntiForgeryToken()
     
@@ -17,58 +17,59 @@
         @Html.ValidationSummary(true)
         
         <div class="form-group">
-            @Html.LabelFor(model => model.Name, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.User.Name, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Name)
-                @Html.ValidationMessageFor(model => model.Name)
+                @Html.EditorFor(model => model.User.Name)
+                @Html.ValidationMessageFor(model => model.User.Name)
+            </div>
+        </div>
+
+       <div class="form-group">
+            @Html.LabelFor(model => model.User.Type, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.User.Type)
+                @Html.ValidationMessageFor(model => model.User.Type)
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.HashedPassword, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.User.Email, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.HashedPassword)
-                @Html.ValidationMessageFor(model => model.HashedPassword)
+                @Html.EditorFor(model => model.User.Email)
+                @Html.ValidationMessageFor(model => model.User.Email)
+            </div>
+        </div>
+        
+        <div class="form-group">
+            @Html.Label("New Password", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.PasswordFor(model => model.NewPassword, new {@id = "newPassword1", @name = "pw1"})
+                @Html.ValidationMessageFor(model => model.NewPassword)
+            </div>
+        </div>
+        
+         <div class="form-group">
+            @Html.Label("Repeat New Password", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.PasswordFor(model => model.NewPassword, new {@id = "newPassword2", @name = "pw2"})
+                @Html.ValidationMessageFor(model => model.NewPassword)
+            </div>
+        </div>
+    <p class="input-validation-error" id="validationMessage"/>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.User.IsAdmin, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.User.IsAdmin)
+                @Html.ValidationMessageFor(model => model.User.IsAdmin)
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Type, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.User.IsHelpdesk, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Type)
-                @Html.ValidationMessageFor(model => model.Type)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Email, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Email)
-                @Html.ValidationMessageFor(model => model.Email)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.IsActive, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.IsActive)
-                @Html.ValidationMessageFor(model => model.IsActive)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.IsAdmin, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.IsAdmin)
-                @Html.ValidationMessageFor(model => model.IsAdmin)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.IsHelpdesk, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.IsHelpdesk)
-                @Html.ValidationMessageFor(model => model.IsHelpdesk)
+                @Html.EditorFor(model => model.User.IsHelpdesk)
+                @Html.ValidationMessageFor(model => model.User.IsHelpdesk)
             </div>
         </div>
 
@@ -87,3 +88,27 @@
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+<script>
+
+
+    $(document).ready(
+    );
+
+    // always use jquery.
+    // JQUERY - saves the day again
+    function validateSamePasswords() {
+        if ($("#newPassword1").val() != $("#newPassword2").val()) {
+            $("#validationMessage").text( "New passwords do not match.");
+            alert("New passwords do not match");
+            alert($("#newPassword1").val());
+            return false;
+        } else {
+            $("#validationMessage").innerText = "";
+            alert($("#newPassword1").val());
+            alert(" match");
+            return true;
+        }
+    }
+</script>
+

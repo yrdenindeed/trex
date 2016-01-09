@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using System.Web.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using trex.Controllers;
 using trex.Models;
@@ -9,6 +10,20 @@ namespace TrexUnitTests
     [TestClass]
     public class UnitTests
     {
+
+        [TestMethod]
+        public void TestMethodCreateNewUser()
+        {
+            var user = new User()
+            {
+                Id = Guid.NewGuid(),
+                HashedPassword = ""
+            };
+
+            var uc = new UserController();
+            Assert.IsTrue((uc.Create(user) as ViewResult).Model == user);
+        }
+
         [TestMethod]
         public void TestMethodChangePasswordFromEmpty()
         {

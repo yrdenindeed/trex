@@ -75,6 +75,7 @@ namespace trex.Utils
         /// <returns>True if the password is correct. False otherwise.</returns>
         public static bool ValidatePassword(string password, string correctHash)
         {
+            if (string.IsNullOrEmpty(correctHash)) return false;
             // Extract the parameters from the hash
             char[] delimiter = { ':' };
             string[] split = correctHash.Split(delimiter);

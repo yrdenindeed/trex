@@ -23,13 +23,13 @@ namespace trex.Controllers
         {          
             User user = db.Users.Find(id);
            
-            return View(new vmChangePassword(){NewPassword = "", OldPassword = "", User = user});
+            return View(new ChangePasswordViewModel(){NewPassword = "", OldPassword = "", User = user});
         }
 
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ChangePassword(ViewModels.vmChangePassword model)
+        public ActionResult ChangePassword(ViewModels.ChangePasswordViewModel model)
         {
              User user = db.Users.Find(model.UserId);
 
@@ -85,21 +85,28 @@ namespace trex.Controllers
         }
 
         // POST: /User/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="Id,Name,Type,Email,IsActive,IsAdmin,IsHelpdesk")] User user)
+        public ActionResult Create([Bind(Include="Id,Name,Type,Email,IsActive,IsAdmin,IsHelpdesk")] SignUpViewModel signUp)
         {
+            var user = signUp.User;
+            if (db.Users.Any(u => String.Equals(user.Email, u.Email, StringComparison.CurrentCultureIgnoreCase)))
+            {
+                ModelState.AddModelError(user.Id.ToString(), "Email address already in use, please use a unique email");
+            }
             if (ModelState.IsValid)
             {
                 user.Id = Guid.NewGuid();
+                user.IsActive = true;
+
+                user.HashedPassword = PasswordHash.CreateHash(signUp.NewPassword);
+
                 db.Users.Add(user);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
-            return View(user);
+            
+            return View(signUp);
         }
 
         // GET: /User/Edit/5

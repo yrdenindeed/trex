@@ -23,8 +23,8 @@ namespace trex.Models
         public bool IsAdmin { get; set; }
         public bool IsHelpdesk { get; set; }
 
-        public Company Company { get; set; }
-        public ICollection<Ticket> Tickets{ get; set; }
+        public virtual Company Company { get; set; }
+        public virtual ICollection<Ticket> Tickets{ get; set; }
 
         /// <summary>
         /// membership

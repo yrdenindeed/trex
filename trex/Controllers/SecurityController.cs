@@ -34,7 +34,7 @@ namespace trex.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login(string inputEmail, string inputPassword)
+        public ActionResult Login(string inputEmail, string inputPassword, bool rememberMe)
         {            
             if (!string.IsNullOrWhiteSpace(inputEmail) && !string.IsNullOrWhiteSpace(inputPassword))
             {
@@ -44,7 +44,7 @@ namespace trex.Controllers
                 {
                     if (PasswordHash.ValidatePassword(inputPassword, user.HashedPassword))
                     {
-                        FormsAuthentication.SetAuthCookie(user.Id.ToString(), false);
+                        FormsAuthentication.SetAuthCookie(user.Id.ToString(), rememberMe);
                         return RedirectToAction("Index", "Ticket");
                     }
                 }

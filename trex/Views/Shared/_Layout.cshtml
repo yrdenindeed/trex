@@ -22,9 +22,10 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Tickets", "Index", "Ticket")</li>
+                    <li>@{Html.RenderAction("ReadMailbox", "Ticket");}</li>
                     <li>@Html.ActionLink("Products", "Index", "Product")</li>
                     <li>@Html.ActionLink("Users", "Index", "User")</li>          
-                    <li>@{Html.RenderAction("ReadMailbox", "Ticket");}</li>              
+                                  
                 </ul>
             </div>
         </div>
