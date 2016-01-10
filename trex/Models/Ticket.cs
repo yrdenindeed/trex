@@ -4,7 +4,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace trex.Models
 {
-    public class Ticket
+
+   
+
+    public class Ticket : ISecurable
     {
         [Key]
         public Guid Id { get; set; }
@@ -27,5 +30,10 @@ namespace trex.Models
         public Customer Customer { get; set; }
 
         public virtual ICollection<PermissionControl> PermissionControls { get; set; }
+
+
+
+        public bool IsSecure { get; set; }
+        
     }
 }

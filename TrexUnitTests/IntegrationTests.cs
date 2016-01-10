@@ -72,5 +72,29 @@ namespace TrexUnitTests
         
 
         }
+
+        [TestMethod]
+        public void TestSecurable()
+        {
+            var cx = new TrexContext();
+            cx.Tickets.Add(new Ticket()
+                {
+                    Id = Guid.NewGuid(),
+                    Added = DateTime.Now,
+                    IsSecure = true,
+                    Notes = "{15F022A6-8289-4888-9498-20CC84C80833}"
+                });
+            cx.Tickets.Add(new Ticket()
+            {
+                Id = Guid.NewGuid(),
+                Added = DateTime.Now,
+                IsSecure = false,
+                Notes = "{15F022A6-8289-4888-9498-20CC84C80833}"
+            });
+            cx.SaveChanges();
+            var sec = new TrexSecureContext();
+            var tickets = sec.Get<Ticket>().Count(u => u.Notes == "{15F022A6-8289-4888-9498-20CC84C80833}");
+            Assert.IsTrue(tickets == 1);
+        }
     }
 }

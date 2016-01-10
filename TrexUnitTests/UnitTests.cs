@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using trex.Controllers;
 using trex.Models;
+using System.Linq;
 
 namespace TrexUnitTests
 {
@@ -12,6 +13,7 @@ namespace TrexUnitTests
     {
 
         [TestMethod]
+<<<<<<< HEAD
         public void TestMethodCreateNewUser()
         {
             var user = new User()
@@ -22,6 +24,42 @@ namespace TrexUnitTests
 
             var uc = new UserController();
             Assert.IsTrue((uc.Create(user) as ViewResult).Model == user);
+=======
+        public void TestLoginSuccess()
+        {
+            var db = new TrexContext();
+
+            var user = new User()
+            {
+                Id = Guid.NewGuid(),
+                Email = "a@a.com",
+                HashedPassword = "1000:lsQrY6Ua0RhOY87r138ykAQnorrHztoP:2zyrQOoEfGxWZJbM/2fhuE9euXPIhG+n"
+            };
+
+            db.Users.Add(user);
+
+            SecurityController c = new SecurityController();
+            c.Login(user.Email, user.HashedPassword);
+            
+            
+>>>>>>> 8c697cc99e6f858bd1dbe59b7a1645a0f8abc006
+        }
+
+        public void TestLoginSuccess()
+        {
+            var db = new TrexContext();
+
+            var user = new User()
+            {
+                Id = Guid.NewGuid(),
+                Email = "a@a.com",
+                HashedPassword = "1000:lsQrY6Ua0RhOY87r138ykAQnorrHztoP:2zyrQOoEfGxWZJbM/2fhuE9euXPIhG+n"
+            };
+
+            db.Users.Add(user);
+
+            SecurityController c = new SecurityController();
+            c.Login(user.Email, user.HashedPassword);
         }
 
         [TestMethod]
@@ -63,5 +101,7 @@ namespace TrexUnitTests
 
             Assert.IsFalse(UserController.CheckChangePassword(user, "wrongpassword", "password2"), "Wrong password should be password1");
         }
+
+        
     }
 }

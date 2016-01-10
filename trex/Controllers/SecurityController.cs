@@ -36,8 +36,7 @@ namespace trex.Controllers
         [HttpPost]
         public ActionResult Login(string inputEmail, string inputPassword, bool rememberMe)
         {
-            var smex = 1290;
-            Console.WriteLine($("smex = {smex}"));
+         
             if (!string.IsNullOrWhiteSpace(inputEmail) && !string.IsNullOrWhiteSpace(inputPassword))
             {
                 string email = inputEmail.ToString();

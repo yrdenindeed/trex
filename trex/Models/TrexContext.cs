@@ -20,4 +20,11 @@ namespace trex.Models
 
 
     }
+
+
+    public interface ISecurable
+    {
+        bool IsSecure { get; set; }
+    }
+    
 }

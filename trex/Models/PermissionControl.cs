@@ -10,11 +10,11 @@ namespace trex.Models
         public SecurityGroup SecurityGroup  { get; set; }
 
         public bool AllowRead { get; set; }
-        public bool AllowWrite { get; set; }
+        public bool AllowReadWrite { get; set; }
         public bool AllowDelete { get; set; }
 
         public bool DenyRead { get; set; }
-        public bool DenyWrite { get; set; }
+        public bool DenyReadWrite { get; set; }
         public bool DenyDelete { get; set; }
     }
 }
